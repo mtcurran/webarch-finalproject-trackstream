@@ -28,7 +28,7 @@ app.get('/', function (req, res, next) {
   res.render('main.html');
 });
 
-app.get('/tunefind', function(req, res) {
+app.get('/tunefind_show', function(req, res) {
 	console.log("TuneFind API request sending...");
 
 	show_name = "arrow";
@@ -38,7 +38,7 @@ app.get('/tunefind', function(req, res) {
 	pass = "b6cb8aac2c4f558eeff122a4f2bdbe48";
 
 	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/show/'
-	+ show_name + '/season-' + season_n + '/' + episode_n + '?debug=json';
+	+ show_name + '/season-' + season_n + '/' + episode_n;
 
 	console.log(url);
 
@@ -47,7 +47,31 @@ app.get('/tunefind', function(req, res) {
 			url: url
 		},
 		function(error, response, body) {
-			res.json(body);
+			console.log(body);
+			res.render('main.html', {'tunefind_results': body});
+		}
+	)
+});
+
+app.get('/tunefind_movie', function(req, res) {
+	console.log("TuneFind API request sending...");
+
+	movie_name = "ghosts-of-girlfriends-past";
+	username = "374a4ae1df4ba412cfb9f6485f426143";
+	pass = "b6cb8aac2c4f558eeff122a4f2bdbe48";
+
+	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/movie/'
+	+ movie_name + '?debug=json';
+
+	console.log(url);
+
+	request(
+		{
+			url: url
+		},
+		function(error, response, body) {
+			console.log(body);
+			res.render('main.html', {'tunefind_results': body});
 		}
 	)
 });
