@@ -1,25 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--
-    Note: I implemented the extra credit of infinite scrolling, but it
-    doesn't quite work perfectly. Right now it only works when one scrolls to
-    the top of the page instead of the bottom...
-    I have looked up various places online and couldn't figure it out.
-    Thoughts? -->
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!--Import materialize.css-->
-    <!-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/> -->
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title> TrackStream </title>
-    <link rel="stylesheet" href="static/_css/style.css">
+    <link rel="stylesheet" type="text/css" href="/_css/style.css">
     <script type="text/javascript" src="https://stratus.soundcloud.com/stratus.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Nothing+You+Could+Do" rel="stylesheet">
@@ -42,31 +31,74 @@
             <div class="row valign-wrapper">
 
                 <!-- search field -->
-                <form class="input-field col s10 white-text" action="/tunefind_movie" method="GET">
-                    <input placeholder="Search By Episode" id="new_search1" type="text" class="validate"><br>
-                    <input placeholder="Search By Lyrics" id="new_search2" type="text" class="validate"><br>
-                    <input placeholder="Search By Serial" id="new_search3" type="text" class="validate">
+<!--                 <form class="input-field col s10 white-text" action="/tunefind_movie" method="GET">
+                    <input placeholder="Search By Season" id="new_search1" type="text" class="validate"><br>
+                   
+                    <input placeholder="Search By Episode" id="new_search3" type="text" class="validate">
                     <input type="submit" id="submit" value="Search"/>
-                </form>
+                </form> -->
 
                 <!-- submit button -->
-               <div class="col s2 right-align">
+<!--                <div class="col s2 right-align">
                 <div class="row"><br><br>
                     <button class="btn waves-effect waves-light blue-grey darken-1" type="submit" name="action" id="search_btn1">
-                        Search
+                        Movie
                     </button>
                 </div>
-                <br><div class="row">
-                    <button class="btn waves-effect waves-light blue-grey darken-1" type="submit" name="action" id="search_btn2">
-                        Search
-                    </button>
-                </div><br>
+
                 <div class="row">
                     <button class="btn waves-effect waves-light blue-grey darken-1" type="submit" name="action" id="search_btn3">
-                        Search
+                        Show
                     </button>
                 </div><br>
+                </div> -->
+                 
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-filter" data-target="pagado">Movie</button>
+                                <button type="button" class="btn btn-warning btn-filter" data-target="pendiente">Show</button>
+
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-filter">
+                                <tbody>
+                                    
+                                    <tr data-status="pendiente">
+                                        <td>  <input placeholder="Search By Season" id="new_search1" type="text" class="validate"><br>
+                   
+                    <input placeholder="Search By Episode" id="new_search3" type="text" class="validate">
+                                            
+                                        </td>
+                                        <td>
+               
+                                        </td>
+
+                                        </td>
+                                    </tr>
+                                    <tr data-status="cancelado">
+                                        <td>
+     
+                                        </td>
+                                        <td>
+            
+                                        </td>
+                                        <td>
+                                          
+                                        </td>
+                                    </tr>
+                                  
+                               
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+
+            </div>
 
             </div>
         </div>
