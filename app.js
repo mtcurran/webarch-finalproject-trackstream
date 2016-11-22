@@ -19,8 +19,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static(__dirname + '/static'));
 /****END OF NO NEED TO MODIFY SECTION ******/
 
+// Function to receive API response and return dictionary of {[artist, song name] : scene}
+// @param body : String returned from TuneFind API
+// @return object : dictionary of {[artist, song name] : scene}
+function makeShowDict (body) {
 
+	showDict = {}
+	parsedBody = JSON.parse(body)
+	songs = parsedBody.songs
 
+	for (i = 0; i < songs.length; i++) {
+		showDict[[songs[i].artist.name, songs[i].name]] = songs[i].scene
+	}
+
+	return showDict
+};
+
+// function makeMovieDict (body) {
+
+// 	movieDict = {}
+// 	parsedBody = JSON
+
+// }
 
 // Define your routes here
 
@@ -37,8 +57,10 @@ app.get('/tunefind_show', function(req, res) {
 	username = "374a4ae1df4ba412cfb9f6485f426143";
 	pass = "b6cb8aac2c4f558eeff122a4f2bdbe48";
 
-	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/show/'
-	+ show_name + '/season-' + season_n + '/' + episode_n;
+	//url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/show/' + show_name + '/season-' + season_n + '/' + episode_n + '?debug=json';
+
+	
+	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/show/' + show_name + '/season-' + season_n + '/' + episode_n;
 
 	console.log(url);
 
@@ -47,8 +69,11 @@ app.get('/tunefind_show', function(req, res) {
 			url: url
 		},
 		function(error, response, body) {
-			console.log(body);
-			res.render('main.html', {'tunefind_results': body});
+
+			showDict = makeShowDict(body);
+			console.log(showDict);
+
+			res.render('main.html', {'tunefind_results': JSON.stringify(showDict)});
 		}
 	)
 });
@@ -61,7 +86,7 @@ app.get('/tunefind_movie', function(req, res) {
 	pass = "b6cb8aac2c4f558eeff122a4f2bdbe48";
 
 	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/movie/'
-	+ movie_name + '?debug=json';
+	+ movie_name;
 
 	console.log(url);
 
@@ -71,6 +96,7 @@ app.get('/tunefind_movie', function(req, res) {
 		},
 		function(error, response, body) {
 			console.log(body);
+			//console.log(body.keys)
 			res.render('main.html', {'tunefind_results': body});
 		}
 	)
