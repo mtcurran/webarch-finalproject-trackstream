@@ -1,98 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <!--
-    Note: I implemented the extra credit of infinite scrolling, but it
-    doesn't quite work perfectly. Right now it only works when one scrolls to
-    the top of the page instead of the bottom...
-    I have looked up various places online and couldn't figure it out.
-    Thoughts? -->
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="_css/materialize.min.css"  media="screen,projection">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link type="text/css" rel="stylesheet" href="_css/style.css">
+        <title>TrackStream</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="section" id="title">
+                <h2>TrackStream</h2>
+            </div>
 
-    <!--Import materialize.css-->
-    <!-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/> -->
-    <!-- Compiled and minified CSS -->
+            <div class="section">
+                <div class="col s12">
+                    <span class="flow-text" id="welcome">
+                    Welcome! Type to search on TrackStream
+                    </span>
+                </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title> TrackStream </title>
-    <link rel="stylesheet" href="_css/style.css">
-    <script type="text/javascript" src="https://stratus.soundcloud.com/stratus.js"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Nothing+You+Could+Do" rel="stylesheet">
-
-</head>
-<body>
-    <div class="container">
-        <!-- site title -->
-        <div class="section" id="title">
-            <h2> TrackStream </h2>
-        </div>
-
-        <!-- search -->
-        <div class="section">
-            <!-- welcome text -->
-            <div class="col s12"><span class="flow-text" id="welcome">
-                Welcome! Type to search on TrackStream
-            </span></div>
-
-            <div class="row valign-wrapper">
-
+                <div class="row valign-wrapper">
                     <button class="btn waves-effect waves-light" id = "movie" type="submit" name="action" id="search_btn2">
                         Movie
                     </button>
-                <br>
-                <div>
-                </div>
-        
+                
                     <button class="btn waves-effect waves-light " id = "tv_show" type="submit" name="action" id="search_btn3">
                         TV Show
                     </button>
-                <br>
-                <div>
+                    <div>
+                    </div>
+
+                    <!-- search field -->
+                    <form class="input-field col s10 white-text">
+                        <input placeholder="Search By Title" id="new_search1" type="text" class="validate">
+                        <input placeholder="Search By Season" id="new_search2" type="text" class="validate">
+                        <br>
+                    </form>
+                <!-- submit button -->       
                 </div>
-
-                <!-- search field -->
-                <form class="input-field col s10 white-text">
-                    <input placeholder="Search By Season" id="new_search1" type="text" class="validate"><br>
-
-                    <input placeholder="Search By Episode" id="new_search3" type="text" class="validate">
-                </form>
-
-                <!-- submit button -->
-         
-                
-    
-              
-
             </div>
         </div>
-    </div>
 
-    <!-- result and playlist -->
-    <div class="section" id="wrap">
-        <!-- search results -->
-        <div class="row">
-            <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Search Results</span>
+        <!-- result and playlist -->
+        <div class="section" id="wrap">
+            <!-- search results -->
+            <div class="row">
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Search Results</span>
                         <div class="section" id="results"></div>
                     </div>
                 </div>
             </div>
-
-            <!-- playlist -->
-            
+            <!-- playlist -->     
+            </div>
         </div>
-    </div>
 
-    <script type="text/javascript" src="_js/main.js"> </script>
-    <script type="text/javascript" src="_js/soundcloud.js"> </script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-</body>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="_js/materialize.min.js"></script>
+        <script type="text/javascript" src="_js/main.js"> </script>
+    </body>
 </html>
