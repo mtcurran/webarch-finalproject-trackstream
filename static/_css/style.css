@@ -1,48 +1,19 @@
-/* Add CSS */
-/*font-family: 'Bungee Shade', cursive;
-font-family: 'Nothing You Could Do', cursive;*/
+#tv_show {
+ 	background-color: #f0ad4e;
+ }
 
-#title{
-    color: white;
-    font-family: 'Bungee Shade', cursive;
-}
-
-#welcome{
-    color: white;
-    font-family: 'Nothing You Could Do', cursive;
-}
-.input-field input[type=text]:focus {
-  border-bottom: 1px solid #ff6d00;
-  box-shadow: 0 1px 0 0 #000;
+#movie {
+	background-color: #d9534f;
 }
 
-/* valid color */
-.input-field input[type=text].valid {
-  border-bottom: 1px solid #ff6d00;
-  box-shadow: 0 1px 0 0 #000;
+#movie.darken:hover {
+	background-color: red;
 }
 
-/* invalid color */
-.input-field input[type=text].invalid {
-  border-bottom: 1px solid #ff6d00;
-  box-shadow: 0 1px 0 0 #000;
-}
-
-body {
-    background-color: #263238;
-}
-
-.play_link{
-    display: none;
-}
-
-.btn, .btn-large {
-    text-decoration: none;
-    color: #fff;
-    background-color: #26a69a;
-    text-align: center;
-    letter-spacing: .5px;
-    transition: .2s ease-out;
-    cursor: pointer;
-    margin-top: 50px;
-}
+/*#new_search2 {
+	display: none !important;
+}*/
+/*
+#new_search3 {
+	display: none !important;
+}*/
