@@ -1,19 +1,48 @@
-#tv_show {
- 	background-color: #f0ad4e;
- }
+#welcome
+{
+	margin-left: 50px;
+}
 
 #movie {
-	background-color: #d9534f;
+	background-color: #e57373;
+	width: 150px;
 }
 
-#movie.darken:hover {
-	background-color: red;
+#movie:hover {
+	background-color: #ff5252;
 }
 
-/*#new_search2 {
-	display: none !important;
-}*/
-/*
-#new_search3 {
-	display: none !important;
-}*/
+#tv_show {
+ 	background-color: #ffa000;
+ 	width: 150px;	
+}
+
+#tv_show:hover {
+ 	background-color: #ff6f00;
+}
+
+.searchsection {
+	text-align: center;
+	margin-top: 70px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#new_search1 {
+	color: black;
+	margin-top: 20px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#search_btn3:hover {
+	background-color: #1976d2 !important;
+}
+
+#wrap {
+    text-align: center;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 50px;
+}

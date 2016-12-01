@@ -16,14 +16,14 @@
                 <h2>TrackStream</h2>
             </div>
 
-            <div class="section">
-                <div class="col s12">
-                    <span class="flow-text" id="welcome">
+            <div class="col s12">
+                <span class="flow-text" id="welcome">
                     Welcome! Type to search on TrackStream
-                    </span>
-                </div>
+                </span>
+            </div>
 
-                <div class="row valign-wrapper">
+            <div class = "searchsection">
+                <div>
                     <button class="btn waves-effect waves-light" id ="movie" type="submit" name="action">
                         Movie
                     </button>
@@ -31,15 +31,6 @@
                     <button class="btn waves-effect waves-light " id ="tv_show" type="submit" name="action">
                         TV Show
                     </button>
-                    <div>
-                    </div>
-
-                    <!-- search field -->
-                    <form class="input-field col s10 white-text" id="mainform" action="" method="GET">
-                        <input placeholder="Search By Title" id="new_search1" type="text" class="validate">
-                        <input placeholder="Search By Season" id="new_search2" type="text" class="validate">
-                        <br>
-                    </form>
 
                     <!-- TEST FORM -->
 <!--                     <form class="input-field col s10 white-text" id="mainform2" action="" method="POST">
@@ -49,11 +40,16 @@
                     </form>                    
  -->
 <!--                     {{{ form }}} -->
-                    <!-- submit button -->
-                    <button class="btn waves-effect waves-light blue-grey darken-1" type="submit" name="action" id="search_btn3" form="mainform">
-                    Search
-                    </button>       
                 </div>
+                                    <!-- search field -->
+                <form class="input-field col s10 white-text" id="mainform" action="" method="GET">
+                    <input placeholder="Search By Title" id="new_search1" type="text" class="validate">
+                        <br>
+                </form>
+                
+                <button class="btn waves-effect waves-light blue accent-2" type="submit" name="action" id="search_btn3" form="mainform">
+                    Search
+                </button>
             </div>
         </div>
 
@@ -61,7 +57,7 @@
         <div class="section" id="wrap">
             <!-- search results -->
             <div class="row">
-                <div class="col s6">
+                <div class="col s12">
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">Search Results</span>
