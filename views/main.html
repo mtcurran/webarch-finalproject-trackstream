@@ -41,9 +41,10 @@
  -->
 <!--                     {{{ form }}} -->
                 </div>
-                                    <!-- search field -->
-                <form class="input-field col s10 white-text" id="mainform" action="" method="GET">
-                    <input placeholder="Search By Title" id="new_search1" type="text" class="validate">
+                
+                <!-- search field -->
+                <form class="input-field col s10 white-text" id="mainform" action="" method="POST">
+                    <input placeholder="Search By Title" id="new_search1" type="text" class="validate" name="show_or_movie_name">
                         <br>
                 </form>
                 
@@ -62,6 +63,9 @@
                         <div class="card-content">
                             <span class="card-title">Search Results</span>
                             {{{ tunefind_results }}}
+                            {{{ optionsForm }}}
+                            <p>You selected {{ selectedSeasonURL }}</p>
+                            
                         <div class="section" id="results"></div>
                     </div>
                 </div>
