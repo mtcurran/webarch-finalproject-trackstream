@@ -56,6 +56,15 @@ function makeSongDict(body) {
  	return HTML;
  }
 
+
+////////////////////
+// app.post('/', function (req, res, next) {
+// 	console.log("hitting post");
+// 	console.log(req.body);
+// })
+////////////////////
+
+
 // Define your routes here
 
 app.get('/', function (req, res, next) {
