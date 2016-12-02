@@ -21,6 +21,14 @@
  	background-color: #ff6f00;
 }
 
+#tvresult {
+ 	background-color: #ffa000;	
+}
+
+#tvresult:hover {
+	background-color: #ff6f00;
+}
+
 .searchsection {
 	text-align: center;
 	margin-top: 70px;
@@ -45,4 +53,10 @@
     padding-left: 100px;
     padding-right: 100px;
     margin-top: 50px;
+}
+
+.card-title {
+	text-align: center;
+    padding-left: 100px;
+    padding-right: 100px;
 }

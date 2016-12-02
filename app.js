@@ -54,7 +54,7 @@ var songsDict;
  	for (seasonNumber in seasonsDict) {
  		seasonList = seasonsDict[seasonNumber];
  		HTML += '<li>';
- 		HTML += '<button type="submit" class="validate" name="selectedSeason" value="';
+ 		HTML += '<button type="submit" id ="tvresult" class="validate btn waves-effect waves-light" name="selectedSeason" value="';
  		HTML += seasonNumber;
  		HTML += '">Season ';
  		HTML += seasonNumber;
@@ -110,7 +110,7 @@ var songsDict;
  	for (episodeNumber in episodesDict) {
  		episodeList = episodesDict[episodeNumber];
  		HTML += '<li>'; 		
- 		HTML += '<button type="submit" class="validate" name="selectedEpisode" value="';
+ 		HTML += '<button type="submit" id ="tvresult" class="validate btn waves-effect waves-light" name="selectedEpisode" value="';
  		HTML += episodeNumber;
  		HTML += '">Episode ';
  		HTML += episodeNumber;
@@ -167,7 +167,7 @@ function populateSongsDict(body) {
  		songList = songsDict[songName];
  		youtubeSearch = songList[0] + ' ' + songName;
  		HTML += '<li>'; 		
- 		HTML += '<button type="submit" class="validate" name="selectedSong" value="';
+ 		HTML += '<button id ="tvresult" class="validate btn waves-effect waves-light" type="submit" name="selectedSong" value="';
  		HTML += youtubeSearch;
  		HTML += '">Song: ';
  		HTML += songName;
@@ -310,8 +310,8 @@ app.get('/tunefind_movie', function(req, res) {
 
 
 // Start up server on port 3000 on host localhost
-var server = app.listen(3000, function () {
+var server = app.listen(process.env.PORT || 3000, function () {
   var port = server.address().port;
   console.log('Trackstream server on localhost listening on port ' + port + '!');
-  console.log('Open up your browser (within your VM) and enter the URL "http://localhost:' + port + '" to view your website!');
+  //console.log('Open up your browser (within your VM) and enter the URL "http://localhost:' + port + '" to view your website!');
 });
