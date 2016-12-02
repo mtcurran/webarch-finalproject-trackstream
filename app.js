@@ -62,8 +62,8 @@ var songsDict;
  		HTML += '<br/>';
  		HTML += 'Episode Count: ';
  		HTML += seasonList[1];
+	 	HTML += '</button>';
  	}
- 	HTML += '</button>';
  	HTML += '</form>';
  	return HTML;
  };
@@ -113,8 +113,8 @@ var songsDict;
  		HTML += '<br/>';
  		HTML += 'Song Count: ';
  		HTML += episodeList[1];
+ 		HTML += '</button>'; 	 		
  	}
- 	HTML += '</button>'; 	
  	HTML += '</form>';
  	return HTML;
  };
@@ -165,8 +165,8 @@ function populateSongsDict(body) {
  		HTML += '<br/>';
  		HTML += 'Scene: ';
  		HTML += songList[1];
+ 		HTML += '</button>'; 	 		
  	}
- 	HTML += '</button>'; 	
  	HTML += '</form>';
  	return HTML;
  };
@@ -189,7 +189,7 @@ app.post('/tunefind_get_show_seasons', function (req, res, next) {
 		function(error, response, body) {
 			populateSeasonsDict(body);
 			seasonsHTML = makeSeasonsHTML(seasonsDict);
-			res.render('main.html', {'optionsForm' : seasonsHTML});
+			res.render('main.html', {'optionsForm' : seasonsHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
 	)
 });
@@ -206,7 +206,7 @@ app.post('/tunefind_get_show_episodes', function (req, res, next) {
 		function(error, response, body) {
 			populateEpisodesDict(body);
 			episodesHTML = makeEpisodesHTML(episodesDict);
-			res.render('main.html', {'optionsForm' : episodesHTML});
+			res.render('main.html', {'optionsForm' : episodesHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
 	)
 });
@@ -225,7 +225,7 @@ app.post('/tunefind_get_show_songs', function (req, res, next) {
 			console.log(body);
 			populateSongsDict(body);
 			songsHTML = makeSongsHTML(songsDict);
-			res.render('main.html', {'optionsForm' : songsHTML});
+			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
 	)
 });
