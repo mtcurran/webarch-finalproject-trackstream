@@ -52,7 +52,7 @@ var songsDict;
  	HTML = '<form class="input-field col s10" id="optionsForm" action="/tunefind_get_show_episodes" method="POST">'
  	for (seasonNumber in seasonsDict) {
  		seasonList = seasonsDict[seasonNumber];
- 		HTML += '<button type="submit" class="validate" name="selectedSeason" value="';
+ 		HTML += '<button type="submit" id ="tvresult" class="validate btn waves-effect waves-light" name="selectedSeason" value="';
  		HTML += seasonNumber;
  		HTML += '">Season ';
  		HTML += seasonNumber;
@@ -103,7 +103,7 @@ var songsDict;
  	HTML = '<form class="input-field col s10" id="optionsForm" action="/tunefind_get_show_songs" method="POST">'
  	for (episodeNumber in episodesDict) {
  		episodeList = episodesDict[episodeNumber];
- 		HTML += '<button type="submit" class="validate" name="selectedEpisode" value="';
+ 		HTML += '<button type="submit" id ="tvresult" class="validate btn waves-effect waves-light" name="selectedEpisode" value="';
  		HTML += episodeNumber;
  		HTML += '">Episode ';
  		HTML += episodeNumber;
@@ -155,7 +155,7 @@ function populateSongsDict(body) {
  	for (songName in songsDict) {
  		songList = songsDict[songName];
  		youtubeSearch = songList[0] + ' ' + songName;
- 		HTML += '<button type="submit" class="validate" name="selectedSong" value="';
+ 		HTML += '<button id ="tvresult" class="validate btn waves-effect waves-light" type="submit" name="selectedSong" value="';
  		HTML += youtubeSearch;
  		HTML += '">Song: ';
  		HTML += songName;
