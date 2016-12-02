@@ -192,6 +192,23 @@ app.get('/', function (req, res, next) {
   res.render('main.html');
 });
 
+app.post('/tunefind_get_movie_songs', function(req, res) {
+	movieName = req.body.show_or_movie_name;
+	movieName = movieName.replace(/ /g, "-").toLowerCase();
+	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/movie/' + movieName;
+
+	request(
+		{
+			url: url
+		},
+		function(error, response, body) {
+			populateSongsDict(body);
+			songsHTML = makeSongsHTML(songsDict);
+			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"tunefind_get_movie_songs"'});
+		}
+	)
+});
+
 app.post('/tunefind_get_show_seasons', function (req, res, next) {
 	showName = req.body.show_or_movie_name;
 	showName = showName.replace(/ /g, "-").toLowerCase();
@@ -237,7 +254,6 @@ app.post('/tunefind_get_show_songs', function (req, res, next) {
 			url: url
 		},
 		function(error, response, body) {
-			console.log(body);
 			populateSongsDict(body);
 			songsHTML = makeSongsHTML(songsDict);
 			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
@@ -265,49 +281,6 @@ app.post('/youtube_search', function (req, res, next) {
 		}
 	)
 });
-
-app.get('/tunefind_show', function(req, res) {
-	console.log("TuneFind API request sending...");
-	show_name = "arrow";
-	season_n = "1";
-	episode_n = "12612";
-	username = "374a4ae1df4ba412cfb9f6485f426143";
-	pass = "b6cb8aac2c4f558eeff122a4f2bdbe48";
-	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/show/' + show_name + '/season-' + season_n + '/' + episode_n;
-
-	request(
-		{
-			url: url
-		},
-		function(error, response, body) {
-			songDict = makeSongDict(body);
-			console.log(songDict);
-			songSceneHTML = makeSongSceneHTML(songDict);
-			res.render('main.html', {'tunefind_results': songSceneHTML});
-		}
-	)
-});
-
-app.get('/tunefind_movie', function(req, res) {
-	console.log("TuneFind API request sending...");
-	movie_name = "ghosts-of-girlfriends-past";
-	username = "374a4ae1df4ba412cfb9f6485f426143";
-	pass = "b6cb8aac2c4f558eeff122a4f2bdbe48";
-	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/movie/' + movie_name;
-
-	request(
-		{
-			url: url
-		},
-		function(error, response, body) {
-			songDict = makeSongDict(body)
-			console.log(songDict);
-			songSceneHTML = makeSongSceneHTML(songDict);			
-			res.render('main.html', {'tunefind_results': songSceneHTML});
-		}
-	)
-});
-
 
 // Start up server on port 3000 on host localhost
 var server = app.listen(process.env.PORT || 3000, function () {
