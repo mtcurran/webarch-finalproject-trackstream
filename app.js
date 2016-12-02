@@ -28,7 +28,7 @@ var songsDict;
  * @param {Object} body - the body of the response in JSON format
  */
  function populateSeasonsDict(body) {
- 	seasonsDict = {}
+ 	seasonsDict = {};
  	parsedBody = JSON.parse(body);
  	seasons = parsedBody["seasons"];
  	for (i = 0; i < seasons.length; i++) {
@@ -49,9 +49,11 @@ var songsDict;
  * 	season options.
  */
  function makeSeasonsHTML(seasonsDict) {
- 	HTML = '<form class="input-field col s10" id="optionsForm" action="/tunefind_get_show_episodes" method="POST">'
+ 	HTML = '<form class="input-field col s10" id="optionsForm" action="/tunefind_get_show_episodes" method="POST">';
+ 	HTML += '<ul>';
  	for (seasonNumber in seasonsDict) {
  		seasonList = seasonsDict[seasonNumber];
+ 		HTML += '<li>';
  		HTML += '<button type="submit" class="validate" name="selectedSeason" value="';
  		HTML += seasonNumber;
  		HTML += '">Season ';
@@ -63,7 +65,10 @@ var songsDict;
  		HTML += 'Episode Count: ';
  		HTML += seasonList[1];
 	 	HTML += '</button>';
+	 	HTML += '</li>';
+	 	HTML += '</br>';
  	}
+ 	HTML += '</ul>';
  	HTML += '</form>';
  	return HTML;
  };
@@ -79,7 +84,7 @@ var songsDict;
  * @param {Object} body - the body of the response in JSON format
  */
  function populateEpisodesDict(body) {
- 	episodesDict = {}
+ 	episodesDict = {};
  	parsedBody = JSON.parse(body);
  	episodes = parsedBody["episodes"];
  	for (i = 0; i < episodes.length; i++) {
@@ -100,9 +105,11 @@ var songsDict;
  * 	episode options.
  */
  function makeEpisodesHTML(episodesDict) {
- 	HTML = '<form class="input-field col s10" id="optionsForm" action="/tunefind_get_show_songs" method="POST">'
+ 	HTML = '<form class="input-field col s10" id="optionsForm" action="/tunefind_get_show_songs" method="POST">';
+ 	HTML += '<ul>'; 	
  	for (episodeNumber in episodesDict) {
  		episodeList = episodesDict[episodeNumber];
+ 		HTML += '<li>'; 		
  		HTML += '<button type="submit" class="validate" name="selectedEpisode" value="';
  		HTML += episodeNumber;
  		HTML += '">Episode ';
@@ -114,7 +121,10 @@ var songsDict;
  		HTML += 'Song Count: ';
  		HTML += episodeList[1];
  		HTML += '</button>'; 	 		
+	 	HTML += '</li>';
+	 	HTML += '</br>';
  	}
+ 	HTML += '</ul>';
  	HTML += '</form>';
  	return HTML;
  };
@@ -127,11 +137,11 @@ var songsDict;
  * @param {Object} body - the body of the response in JSON format
  */
 function populateSongsDict(body) {
-	songsDict = {}
+	songsDict = {};
 	parsedBody = JSON.parse(body);
 	songs = parsedBody["songs"];
 	for (i = 0; i < songs.length; i++) {
-		artistName = songs[i].artist.name
+		artistName = songs[i].artist.name;
 		songName = songs[i].name;
 		scene = songs[i].scene;
 		if (!scene) {
@@ -151,10 +161,12 @@ function populateSongsDict(body) {
  * 	song options.
  */
  function makeSongsHTML(songsDict) {
- 	HTML = '<form class="input-field col s10" id="optionsForm" action="/youtube_search" method="POST">'
+ 	HTML = '<form class="input-field col s10" id="optionsForm" action="/youtube_search" method="POST">';
+	HTML += '<ul>';
  	for (songName in songsDict) {
  		songList = songsDict[songName];
  		youtubeSearch = songList[0] + ' ' + songName;
+ 		HTML += '<li>'; 		
  		HTML += '<button type="submit" class="validate" name="selectedSong" value="';
  		HTML += youtubeSearch;
  		HTML += '">Song: ';
@@ -166,7 +178,10 @@ function populateSongsDict(body) {
  		HTML += 'Scene: ';
  		HTML += songList[1];
  		HTML += '</button>'; 	 		
+	 	HTML += '</li>';
+	 	HTML += '</br>';
  	}
+ 	HTML += '</ul>';
  	HTML += '</form>';
  	return HTML;
  };
@@ -246,7 +261,7 @@ app.post('/youtube_search', function (req, res, next) {
 			youtubeHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/';
 			youtubeHTML += videoID;
 			youtubeHTML += '" frameborder="0" allowfullscreen></iframe>';
-			res.render('main.html', {'optionsForm' : youtubeHTML});
+			res.render('main.html', {'optionsForm' : youtubeHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
 	)
 });
