@@ -295,8 +295,8 @@ app.get('/tunefind_movie', function(req, res) {
 
 
 // Start up server on port 3000 on host localhost
-var server = app.listen(3000, function () {
+var server = app.listen(process.env.PORT || 3000, function () {
   var port = server.address().port;
   console.log('Trackstream server on localhost listening on port ' + port + '!');
-  console.log('Open up your browser (within your VM) and enter the URL "http://localhost:' + port + '" to view your website!');
+  //console.log('Open up your browser (within your VM) and enter the URL "http://localhost:' + port + '" to view your website!');
 });
