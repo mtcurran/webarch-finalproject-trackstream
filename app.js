@@ -146,7 +146,8 @@ app.get('/', function (req, res, next) {
 
 app.post('/tunefind_get_movie_songs', function(req, res) {
 	movieName = req.body.show_or_movie_name;
-	url = 'http://localhost:3001/tunefind_get_movie_songs';
+	// url = 'http://localhost:3001/tunefind_get_movie_songs';
+	url = 'https://trackstream-api.herokuapp.com/tunefind_get_movie_songs';
 
 	request(
 		{
@@ -164,7 +165,8 @@ app.post('/tunefind_get_movie_songs', function(req, res) {
 
 app.post('/tunefind_get_show_seasons', function (req, res, next) {
 	showName = req.body.show_or_movie_name;
-	url = 'http://localhost:3001/tunefind_get_show_seasons';
+	// url = 'http://localhost:3001/tunefind_get_show_seasons';
+	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_seasons';
 
 	request(
 		{
@@ -182,7 +184,8 @@ app.post('/tunefind_get_show_seasons', function (req, res, next) {
 
 app.post('/tunefind_get_show_episodes', function (req, res, next) {
 	selectedSeason = req.body.selectedSeason;
-	url = 'http://localhost:3001/tunefind_get_show_episodes';
+	// url = 'http://localhost:3001/tunefind_get_show_episodes';
+	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_episodes';
 
 	request(
 		{
@@ -200,7 +203,8 @@ app.post('/tunefind_get_show_episodes', function (req, res, next) {
 
 app.post('/tunefind_get_show_songs', function (req, res, next) {
 	selectedEpisode = req.body.selectedEpisode;
-	url = 'http://localhost:3001/tunefind_get_show_songs';
+	// url = 'http://localhost:3001/tunefind_get_show_songs';
+	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_songs';
 
 	request(
 		{
@@ -218,7 +222,8 @@ app.post('/tunefind_get_show_songs', function (req, res, next) {
 
 app.post('/youtube_search_movie', function (req, res, next) {
 	youtubeSearch = req.body.selectedSong;
-	url = 'http://localhost:3001/youtube_search';
+	// url = 'http://localhost:3001/youtube_search';
+	url = 'https://trackstream-api.herokuapp.com/youtube_search';
 
 	request(
 		{
@@ -237,7 +242,8 @@ app.post('/youtube_search_movie', function (req, res, next) {
 
 app.post('/youtube_search_show', function (req, res, next) {
 	youtubeSearch = req.body.selectedSong;
-	url = 'http://localhost:3001/youtube_search';
+	// url = 'http://localhost:3001/youtube_search';
+	url = 'https://trackstream-api.herokuapp.com/youtube_search';
 
 	request(
 		{
