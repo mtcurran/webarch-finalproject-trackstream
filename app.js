@@ -10,36 +10,6 @@ app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static(__dirname + '/static'));
 
-// Global variables for later use.
-var username = "374a4ae1df4ba412cfb9f6485f426143";
-var pass = "b6cb8aac2c4f558eeff122a4f2bdbe48";
-var seasonsDict;
-var episodesDict;
-var songsDict;
-
-/**
- * Takes in TuneFind's API response for a search on a TV show name
- * and parses it to extract how many seasons there are, and how many
- * songs and episodes are in each season. For each season, it will also 
- * extract the TuneFind API URL to search for that season. This will be useful
- * to list all the episodes once the user has selected a season. The resulting
- * dictionary has this format: {season number: [song count, episode count, season API URL]}
- * Nothing is returned, but the global variable `seasonsDict` gets populated
- * @param {Object} body - the body of the response in JSON format
- */
- function populateSeasonsDict(body) {
- 	seasonsDict = {};
- 	parsedBody = JSON.parse(body);
- 	seasons = parsedBody["seasons"];
- 	for (i = 0; i < seasons.length; i++) {
- 		seasonNumber = seasons[i].number;
- 		songCount = seasons[i].song_count;
- 		episodeCount = seasons[i].episode_count;
- 		seasonURL = seasons[i].tunefind_api_url;
- 		seasonsDict[seasonNumber] = [songCount, episodeCount, seasonURL];
- 	}
- };
-
 /**
  * Takes in the global `seasonsDict` dictionary and creates a string of HTML 
  * to display the seasons and their corresponding data. 
@@ -68,29 +38,6 @@ var songsDict;
  	HTML += '</ul>';
  	HTML += '</form>';
  	return HTML;
- };
-
-/**
- * Takes in TuneFind's API response for a search on a season for a TV show
- * and parses it to extract how many episodes there are, the episode names, 
- * and how many songs are in each episode. For each episode, it will also 
- * extract the TuneFind API URL to search for that episode. This will be useful
- * to list all the songs & scenes once the user has selected an episode. The resulting
- * dictionary has this format: {episode number: [episode name, song count, episode API URL]}
- * Nothing is returned, but the global variable `episodesDict` gets populated
- * @param {Object} body - the body of the response in JSON format
- */
- function populateEpisodesDict(body) {
- 	episodesDict = {};
- 	parsedBody = JSON.parse(body);
- 	episodes = parsedBody["episodes"];
- 	for (i = 0; i < episodes.length; i++) {
- 		episodeNumber = episodes[i].number;
- 		episodeName = episodes[i].name;
- 		songCount = episodes[i].song_count;
- 		episodeURL = episodes[i].tunefind_api_url;
- 		episodesDict[episodeNumber] = [episodeName, songCount, episodeURL];
- 	}
  };
 
  /**
@@ -123,29 +70,6 @@ var songsDict;
  	return HTML;
  };
 
-/**
- * Takes in TuneFind's API response for a search on a episode within a season for a TV show
- * and parses it to extract song names, artist names, and the scene for each song if applicable. 
- * The resulting dictionary has this format: {song name: [artist name, scene]}
- * Nothing is returned, but the global variable `songsDict` gets populated
- * @param {Object} body - the body of the response in JSON format
- */
-function populateSongsDict(body) {
-	songsDict = {};
-	parsedBody = JSON.parse(body);
-	songs = parsedBody["songs"];
-	for (i = 0; i < songs.length; i++) {
-		artistName = songs[i].artist.name;
-		songName = songs[i].name;
-		scene = songs[i].scene;
-		if (!scene) {
-			scene = "Song isn't used in a particular scene.";
-		}
-		songsDict[songName] = [artistName, scene];
-	}
-	return songsDict;
-};
-
  /**
  * Takes in the global `songsDict` dictionary and creates a string of HTML 
  * to display the songs and their corresponding data. 
@@ -154,8 +78,42 @@ function populateSongsDict(body) {
  * @return {String} HTML - The string of HTML to inject dynamically to display
  * 	song options.
  */
- function makeSongsHTML(songsDict) {
- 	HTML = '<form class="input-field col s10" id="optionsForm" action="/youtube_search" method="POST">';
+ function makeSongsMovieHTML(songsDict) {
+ 	HTML = '<form class="input-field col s10" id="optionsForm" action="/youtube_search_movie" method="POST">';
+	HTML += '<ul>';
+ 	for (songName in songsDict) {
+ 		songList = songsDict[songName];
+ 		youtubeSearch = songList[0] + ' ' + songName;
+ 		HTML += '<li>'; 		
+ 		HTML += '<button id ="tvresult" class="validate btn waves-effect waves-light" type="submit" name="selectedSong" value="';
+ 		HTML += youtubeSearch;
+ 		HTML += '">Song: ';
+ 		HTML += songName;
+ 		HTML += '<br/>';
+ 		HTML += 'Artist: ';
+ 		HTML += songList[0]; 		
+ 		HTML += '<br/>';
+ 		HTML += 'Scene: ';
+ 		HTML += songList[1];
+ 		HTML += '</button>'; 	 		
+	 	HTML += '</li>';
+	 	HTML += '</br>';
+ 	}
+ 	HTML += '</ul>';
+ 	HTML += '</form>';
+ 	return HTML;
+ };
+
+  /**
+ * Takes in the global `songsDict` dictionary and creates a string of HTML 
+ * to display the songs and their corresponding data. 
+ * @param {Object} songsDict - A dictionary where the key is the song name, & 
+ * the value is a list with the artist name, and scene if applicable
+ * @return {String} HTML - The string of HTML to inject dynamically to display
+ * 	song options.
+ */
+ function makeSongsShowHTML(songsDict) {
+ 	HTML = '<form class="input-field col s10" id="optionsForm" action="/youtube_search_show" method="POST">';
 	HTML += '<ul>';
  	for (songName in songsDict) {
  		songList = songsDict[songName];
@@ -188,16 +146,17 @@ app.get('/', function (req, res, next) {
 
 app.post('/tunefind_get_movie_songs', function(req, res) {
 	movieName = req.body.show_or_movie_name;
-	movieName = movieName.replace(/ /g, "-").toLowerCase();
-	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/movie/' + movieName;
+	url = 'http://localhost:3001/tunefind_get_movie_songs';
 
 	request(
 		{
-			url: url
+			url: url,
+			method: 'POST',
+			json: {'movieName' : movieName}
 		},
 		function(error, response, body) {
-			populateSongsDict(body);
-			songsHTML = makeSongsHTML(songsDict);
+			songDict = body;
+			songsHTML = makeSongsMovieHTML(songDict);
 			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"tunefind_get_movie_songs"'});
 		}
 	)
@@ -205,15 +164,16 @@ app.post('/tunefind_get_movie_songs', function(req, res) {
 
 app.post('/tunefind_get_show_seasons', function (req, res, next) {
 	showName = req.body.show_or_movie_name;
-	showName = showName.replace(/ /g, "-").toLowerCase();
-	url = 'https://'+ username + ':' + pass + '@www.tunefind.com/api/v1/show/' + showName;
+	url = 'http://localhost:3001/tunefind_get_show_seasons';
 
 	request(
 		{
-			url: url
+			url: url,
+			method: 'POST',
+			json: {'showName' : showName}
 		},
 		function(error, response, body) {
-			populateSeasonsDict(body);
+			seasonsDict = body;
 			seasonsHTML = makeSeasonsHTML(seasonsDict);
 			res.render('main.html', {'optionsForm' : seasonsHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
@@ -222,15 +182,16 @@ app.post('/tunefind_get_show_seasons', function (req, res, next) {
 
 app.post('/tunefind_get_show_episodes', function (req, res, next) {
 	selectedSeason = req.body.selectedSeason;
-	seasonURL = seasonsDict[selectedSeason][2]
-	url = 'https://' + username + ':' + pass + '@' + seasonURL.substring(8);
+	url = 'http://localhost:3001/tunefind_get_show_episodes';
 
 	request(
 		{
-			url: url
+			url: url,
+			method: 'POST',
+			json: {'selectedSeason' : selectedSeason}
 		},
 		function(error, response, body) {
-			populateEpisodesDict(body);
+			episodesDict = body;
 			episodesHTML = makeEpisodesHTML(episodesDict);
 			res.render('main.html', {'optionsForm' : episodesHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
@@ -239,37 +200,54 @@ app.post('/tunefind_get_show_episodes', function (req, res, next) {
 
 app.post('/tunefind_get_show_songs', function (req, res, next) {
 	selectedEpisode = req.body.selectedEpisode;
-	episodeURL = episodesDict[selectedEpisode][2]
-	url = 'https://' + username + ':' + pass + '@' + episodeURL.substring(8);
-	console.log("The url for the selected season is: " + url);
+	url = 'http://localhost:3001/tunefind_get_show_songs';
 
 	request(
 		{
-			url: url
+			url: url,
+			method: 'POST',
+			json: {'selectedEpisode' : selectedEpisode}
 		},
 		function(error, response, body) {
-			populateSongsDict(body);
-			songsHTML = makeSongsHTML(songsDict);
+			songsDict = body;
+			songsHTML = makeSongsShowHTML(songsDict);
 			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
 	)
 });
 
-app.post('/youtube_search', function (req, res, next) {
+app.post('/youtube_search_movie', function (req, res, next) {
 	youtubeSearch = req.body.selectedSong;
-	youtubeSearch = youtubeSearch.replace(/(\||-)/g, " "); 
-	youtubeSearch = encodeURI(youtubeSearch);
-	url = 'https://www.googleapis.com/youtube/v3/search?key=AIzaSyCqzpPsxZBRhNB2UwO4TWpHANu0PXtxyT4&part=snippet&type=video&maxResults=1&q=' + youtubeSearch;
+	url = 'http://localhost:3001/youtube_search';
 
 	request(
 		{
-			url: url
+			url: url,
+			method: 'POST',
+			json: {'youtubeSearch' : youtubeSearch}
 		},
 		function(error, response, body) {
-			body = JSON.parse(body);
-			videoID = body["items"][0]["id"]["videoId"];
-			youtubeHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/';
-			youtubeHTML += videoID;
+			youtubeURL = body.youtubeURL;
+			youtubeHTML = '<iframe width="560" height="315" src="' + youtubeURL;
+			youtubeHTML += '" frameborder="0" allowfullscreen></iframe>';
+			res.render('main.html', {'optionsForm' : youtubeHTML, 'searchAction' : '"tunefind_get_movie_songs"'});
+		}
+	)
+});
+
+app.post('/youtube_search_show', function (req, res, next) {
+	youtubeSearch = req.body.selectedSong;
+	url = 'http://localhost:3001/youtube_search';
+
+	request(
+		{
+			url: url,
+			method: 'POST',
+			json: {'youtubeSearch' : youtubeSearch}
+		},
+		function(error, response, body) {
+			youtubeURL = body.youtubeURL;
+			youtubeHTML = '<iframe width="560" height="315" src="' + youtubeURL;
 			youtubeHTML += '" frameborder="0" allowfullscreen></iframe>';
 			res.render('main.html', {'optionsForm' : youtubeHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
 		}
