@@ -79,6 +79,10 @@ app.use('/static', express.static(__dirname + '/static'));
  * 	song options.
  */
  function makeSongsMovieHTML(songsDict) {
+ 	if (Object.keys(songsDict).length == 0) {
+ 		HTML = '<p>Woops! Sorry no songs found for this movie!';
+ 		return HTML;
+ 	}
  	HTML = '<form class="input-field col s10" id="optionsForm" action="/youtube_search_movie" method="POST">';
 	HTML += '<ul>';
  	for (songName in songsDict) {
@@ -113,6 +117,10 @@ app.use('/static', express.static(__dirname + '/static'));
  * 	song options.
  */
  function makeSongsShowHTML(songsDict) {
+ 	if (Object.keys(songsDict).length == 0) {
+ 		HTML = '<p>Woops! Sorry no songs found for this episode!';
+ 		return HTML;
+ 	} 	
  	HTML = '<form class="input-field col s10" id="optionsForm" action="/youtube_search_show" method="POST">';
 	HTML += '<ul>';
  	for (songName in songsDict) {
@@ -141,7 +149,12 @@ app.use('/static', express.static(__dirname + '/static'));
 // Define your routes here
 
 app.get('/', function (req, res, next) {
-  res.render('main.html');
+  res.render('main.html', {'searchAction' : '"/no_button_selected"'});
+});
+
+app.post('/no_button_selected', function (req, res, next) {
+	noSearchHTML = '<p>Woops! Please select either Movie or TV Show!</p>';	
+	res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/no_button_selected"'});
 });
 
 app.post('/tunefind_get_movie_songs', function(req, res) {
@@ -156,9 +169,14 @@ app.post('/tunefind_get_movie_songs', function(req, res) {
 			json: {'movieName' : movieName}
 		},
 		function(error, response, body) {
-			songDict = body;
-			songsHTML = makeSongsMovieHTML(songDict);
-			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"tunefind_get_movie_songs"'});
+			if (error ||  response.statusCode == 404) {
+				invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
+				res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_movie_songs"'});
+			} else {
+				songDict = body;
+				songsHTML = makeSongsMovieHTML(songDict);
+				res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_movie_songs"'});
+			}
 		}
 	)
 });
@@ -175,9 +193,14 @@ app.post('/tunefind_get_show_seasons', function (req, res, next) {
 			json: {'showName' : showName}
 		},
 		function(error, response, body) {
-			seasonsDict = body;
-			seasonsHTML = makeSeasonsHTML(seasonsDict);
-			res.render('main.html', {'optionsForm' : seasonsHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
+			if (error ||  response.statusCode == 404) {
+				invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
+				res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
+			} else {
+				seasonsDict = body;
+				seasonsHTML = makeSeasonsHTML(seasonsDict);
+				res.render('main.html', {'optionsForm' : seasonsHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
+			}
 		}
 	)
 });
@@ -196,7 +219,7 @@ app.post('/tunefind_get_show_episodes', function (req, res, next) {
 		function(error, response, body) {
 			episodesDict = body;
 			episodesHTML = makeEpisodesHTML(episodesDict);
-			res.render('main.html', {'optionsForm' : episodesHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
+			res.render('main.html', {'optionsForm' : episodesHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
 		}
 	)
 });
@@ -215,7 +238,7 @@ app.post('/tunefind_get_show_songs', function (req, res, next) {
 		function(error, response, body) {
 			songsDict = body;
 			songsHTML = makeSongsShowHTML(songsDict);
-			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
+			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
 		}
 	)
 });
@@ -235,7 +258,7 @@ app.post('/youtube_search_movie', function (req, res, next) {
 			youtubeURL = body.youtubeURL;
 			youtubeHTML = '<iframe width="560" height="315" src="' + youtubeURL;
 			youtubeHTML += '" frameborder="0" allowfullscreen></iframe>';
-			res.render('main.html', {'optionsForm' : youtubeHTML, 'searchAction' : '"tunefind_get_movie_songs"'});
+			res.render('main.html', {'optionsForm' : youtubeHTML, 'searchAction' : '"/tunefind_get_movie_songs"'});
 		}
 	)
 });
@@ -255,9 +278,13 @@ app.post('/youtube_search_show', function (req, res, next) {
 			youtubeURL = body.youtubeURL;
 			youtubeHTML = '<iframe width="560" height="315" src="' + youtubeURL;
 			youtubeHTML += '" frameborder="0" allowfullscreen></iframe>';
-			res.render('main.html', {'optionsForm' : youtubeHTML, 'searchAction' : '"tunefind_get_show_seasons"'});
+			res.render('main.html', {'optionsForm' : youtubeHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
 		}
 	)
+});
+
+app.get('*', function(req, res){
+	res.status(404).send('So sorry, not found, idk love u lots - trackstream team');
 });
 
 // Start up server on port 3000 on host localhost
