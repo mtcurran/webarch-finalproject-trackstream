@@ -217,3 +217,4 @@ $(window).scroll(function(){
            callAPI(lastQuery);
       }
  });
+

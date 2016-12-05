@@ -60,3 +60,14 @@
     padding-left: 100px;
     padding-right: 100px;
 }
+
+.btn, .btn-large {
+    background-color: #26a69a;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease-out 0s;
+    width: 44%;
+}
