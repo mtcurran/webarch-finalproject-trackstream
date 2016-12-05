@@ -25,12 +25,12 @@ app.use('/static', express.static(__dirname + '/static'));
  		seasonList = seasonsDict[seasonNumber];
  		HTML += '<li>';
  		HTML += '<button type="submit" id ="tvresult" class="validate btn waves-effect waves-light" name="selectedSeason" value="';
- 		HTML += seasonNumber;
+ 		HTML += seasonList[1];
  		HTML += '">Season ';
  		HTML += seasonNumber;
  		HTML += '<br/>';
  		HTML += 'Episode Count: ';
- 		HTML += seasonList[1];
+ 		HTML += seasonList[0];
 	 	HTML += '</button>';
 	 	HTML += '</li>';
 	 	HTML += '</br>';
@@ -55,7 +55,7 @@ app.use('/static', express.static(__dirname + '/static'));
  		episodeList = episodesDict[episodeNumber];
  		HTML += '<li>'; 		
  		HTML += '<button type="submit" id ="tvresult" class="validate btn waves-effect waves-light" name="selectedEpisode" value="';
- 		HTML += episodeNumber;
+ 		HTML += episodeList[1];
  		HTML += '">Episode ';
  		HTML += episodeNumber;
  		HTML += '<br/>';
@@ -169,11 +169,11 @@ app.post('/tunefind_get_movie_songs', function(req, res) {
 			json: {'movieName' : movieName}
 		},
 		function(error, response, body) {
-			if (error ||  response.statusCode == 404) {
+			if (error || response.statusCode == 404) {
 				invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
 				res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_movie_songs"'});
 			} else {
-				songDict = body;
+				var songDict = body;
 				songsHTML = makeSongsMovieHTML(songDict);
 				res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_movie_songs"'});
 			}
@@ -197,7 +197,7 @@ app.post('/tunefind_get_show_seasons', function (req, res, next) {
 				invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
 				res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
 			} else {
-				seasonsDict = body;
+				var seasonsDict = body;
 				seasonsHTML = makeSeasonsHTML(seasonsDict);
 				res.render('main.html', {'optionsForm' : seasonsHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
 			}
@@ -206,7 +206,7 @@ app.post('/tunefind_get_show_seasons', function (req, res, next) {
 });
 
 app.post('/tunefind_get_show_episodes', function (req, res, next) {
-	selectedSeason = req.body.selectedSeason;
+	selectedSeasonURL = req.body.selectedSeason;
 	// url = 'http://localhost:3001/tunefind_get_show_episodes';
 	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_episodes';
 
@@ -214,10 +214,10 @@ app.post('/tunefind_get_show_episodes', function (req, res, next) {
 		{
 			url: url,
 			method: 'POST',
-			json: {'selectedSeason' : selectedSeason}
+			json: {'selectedSeason' : selectedSeasonURL}
 		},
 		function(error, response, body) {
-			episodesDict = body;
+			var episodesDict = body;
 			episodesHTML = makeEpisodesHTML(episodesDict);
 			res.render('main.html', {'optionsForm' : episodesHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
 		}
@@ -225,7 +225,7 @@ app.post('/tunefind_get_show_episodes', function (req, res, next) {
 });
 
 app.post('/tunefind_get_show_songs', function (req, res, next) {
-	selectedEpisode = req.body.selectedEpisode;
+	selectedEpisodeURL = req.body.selectedEpisode;
 	// url = 'http://localhost:3001/tunefind_get_show_songs';
 	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_songs';
 
@@ -233,10 +233,10 @@ app.post('/tunefind_get_show_songs', function (req, res, next) {
 		{
 			url: url,
 			method: 'POST',
-			json: {'selectedEpisode' : selectedEpisode}
+			json: {'selectedEpisode' : selectedEpisodeURL}
 		},
 		function(error, response, body) {
-			songsDict = body;
+			var songsDict = body;
 			songsHTML = makeSongsShowHTML(songsDict);
 			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_show_seasons"'});
 		}
