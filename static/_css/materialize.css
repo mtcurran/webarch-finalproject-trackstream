@@ -3402,12 +3402,12 @@ input[type=range] + .thumb {
   clear: both;
 }
 
-.row .col {
+/*.row .col {
   float: left;
   box-sizing: border-box;
   padding: 0 0.75rem;
   min-height: 1px;
-}
+}*/
 
 .row .col[class*="push-"], .row .col[class*="pull-"] {
   position: relative;
@@ -3476,13 +3476,13 @@ input[type=range] + .thumb {
   right: auto;
 }
 
-.row .col.s10 {
+/*.row .col.s10 {
   width: 83.3333333333%;
   margin-left: auto;
   left: auto;
   right: auto;
 }
-
+*/
 .row .col.s11 {
   width: 91.6666666667%;
   margin-left: auto;

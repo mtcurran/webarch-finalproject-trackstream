@@ -24,11 +24,11 @@
 
             <div class = "searchsection">
                 <div>
-                    <button class="btn waves-effect waves-light" id ="movie" type="submit" name="action">
+                    <button class="btn waves-effect waves-light" id ="movie" type="submit" name="action" onclick="myFunction()">
                         Movie
                     </button>
                 
-                    <button class="btn waves-effect waves-light " id ="tv_show" type="submit" name="action">
+                    <button class="btn waves-effect waves-light " id ="tv_show" type="submit" name="action" onclick="myFunction2()">
                         TV Show
                     </button>
 
@@ -36,7 +36,7 @@
                 
                 <!-- search field -->
                 <form class="input-field col s10 white-text" id="mainform" method="POST" action={{{ searchAction }}}>
-                    <input placeholder="Search By Title" id="new_search1" type="text" class="validate" name="show_or_movie_name">
+                    <input placeholder="Search By Movie Title" id="new_search1" type="text" class="validate" name="show_or_movie_name">
                         <br>
                 </form>
                 
@@ -54,7 +54,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">Search Results</span>
+                            <span class="card-title">Search Results</span><br>
                             {{{ optionsForm }}}                            
                         <div class="section" id="results"></div>
                     </div>
@@ -63,6 +63,18 @@
             <!-- playlist -->     
             </div>
         </div>
+
+<script type="text/javascript">
+    
+    function myFunction() {
+    document.getElementById("new_search1").placeholder = "Search By Movie Title";
+}
+
+function myFunction2() {
+    document.getElementById("new_search1").placeholder = "Search By TV Show Title";
+}
+</script>
+
 
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
