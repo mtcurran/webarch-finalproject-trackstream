@@ -13,7 +13,7 @@
     <body>
         <div class="container">
             <div class="section" id="title">
-                <h2>TrackStream</h2>
+                <a href="/"><h2>TrackStream</h2></a>
             </div>
 
             <div class="col s12">
@@ -36,7 +36,7 @@
                 
                 <!-- search field -->
                 <form class="input-field col s10 white-text" id="mainform" method="POST" action={{{ searchAction }}}>
-                    <input placeholder="Search By Movie Title" id="new_search1" type="text" class="validate" name="show_or_movie_name">
+                    <input id="new_search1" type="text" class="validate" name="show_or_movie_name" placeholder={{{ searchPlaceHolder }}}>
                         <br>
                 </form>
                 
