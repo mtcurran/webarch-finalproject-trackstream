@@ -159,88 +159,104 @@ app.post('/no_button_selected', function (req, res, next) {
 
 app.post('/tunefind_get_movie_songs', function(req, res) {
 	movieName = req.body.show_or_movie_name;
-	// url = 'http://localhost:3001/tunefind_get_movie_songs';
-	url = 'https://trackstream-api.herokuapp.com/tunefind_get_movie_songs';
+	if (!movieName) {
+		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_movie_songs"', 'searchPlaceHolder' : '"Select by Movie Title"'});
+	} else { 
+		// url = 'http://localhost:3001/tunefind_get_movie_songs';
+		url = 'https://trackstream-api.herokuapp.com/tunefind_get_movie_songs';
 
-	request(
-		{
-			url: url,
-			method: 'POST',
-			json: {'movieName' : movieName}
-		},
-		function(error, response, body) {
-			if (error || response.statusCode == 404) {
-				invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
-				res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_movie_songs"', 'searchPlaceHolder' : '"Select by Movie Title"'});
-			} else {
-				var songDict = body;
-				songsHTML = makeSongsMovieHTML(songDict);
-				res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_movie_songs"', 'searchPlaceHolder' : '"Select by Movie Title"'});
+		request(
+			{
+				url: url,
+				method: 'POST',
+				json: {'movieName' : movieName}
+			},
+			function(error, response, body) {
+				if (error || response.statusCode == 404) {
+					invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
+					res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_movie_songs"', 'searchPlaceHolder' : '"Select by Movie Title"'});
+				} else {
+					var songDict = body;
+					songsHTML = makeSongsMovieHTML(songDict);
+					res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_movie_songs"', 'searchPlaceHolder' : '"Select by Movie Title"'});
+				}
 			}
-		}
-	)
+		)
+	};
 });
 
 app.post('/tunefind_get_show_seasons', function (req, res, next) {
 	showName = req.body.show_or_movie_name;
-	// url = 'http://localhost:3001/tunefind_get_show_seasons';
-	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_seasons';
+	if (!show_or_movie_name) {
+		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+	} else { 
+		// url = 'http://localhost:3001/tunefind_get_show_seasons';
+		url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_seasons';
 
-	request(
-		{
-			url: url,
-			method: 'POST',
-			json: {'showName' : showName}
-		},
-		function(error, response, body) {
-			if (error ||  response.statusCode == 404) {
-				invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
-				res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
-			} else {
-				var seasonsDict = body;
-				seasonsHTML = makeSeasonsHTML(seasonsDict);
-				res.render('main.html', {'optionsForm' : seasonsHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+		request(
+			{
+				url: url,
+				method: 'POST',
+				json: {'showName' : showName}
+			},
+			function(error, response, body) {
+				if (error ||  response.statusCode == 404) {
+					invalidSearchHTML = '<p>Woops! No results found! Try another search term!</p>';
+					res.render('main.html', {'search_error' : invalidSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+				} else {
+					var seasonsDict = body;
+					seasonsHTML = makeSeasonsHTML(seasonsDict);
+					res.render('main.html', {'optionsForm' : seasonsHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+				}
 			}
-		}
-	)
+		)
+	};
 });
 
 app.post('/tunefind_get_show_episodes', function (req, res, next) {
 	selectedSeasonURL = req.body.selectedSeason;
-	// url = 'http://localhost:3001/tunefind_get_show_episodes';
-	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_episodes';
+	if (!selectedSeasonURL) {
+		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+	} else { 
+		// url = 'http://localhost:3001/tunefind_get_show_episodes';
+		url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_episodes';
 
-	request(
-		{
-			url: url,
-			method: 'POST',
-			json: {'selectedSeason' : selectedSeasonURL}
-		},
-		function(error, response, body) {
-			var episodesDict = body;
-			episodesHTML = makeEpisodesHTML(episodesDict);
-			res.render('main.html', {'optionsForm' : episodesHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
-		}
-	)
+		request(
+			{
+				url: url,
+				method: 'POST',
+				json: {'selectedSeason' : selectedSeasonURL}
+			},
+			function(error, response, body) {
+				var episodesDict = body;
+				episodesHTML = makeEpisodesHTML(episodesDict);
+				res.render('main.html', {'optionsForm' : episodesHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+			}
+		)
+	};
 });
 
 app.post('/tunefind_get_show_songs', function (req, res, next) {
 	selectedEpisodeURL = req.body.selectedEpisode;
-	// url = 'http://localhost:3001/tunefind_get_show_songs';
-	url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_songs';
+	if (!selectedEpisodeURL) {
+		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+	} else { 
+		// url = 'http://localhost:3001/tunefind_get_show_songs';
+		url = 'https://trackstream-api.herokuapp.com/tunefind_get_show_songs';
 
-	request(
-		{
-			url: url,
-			method: 'POST',
-			json: {'selectedEpisode' : selectedEpisodeURL}
-		},
-		function(error, response, body) {
-			var songsDict = body;
-			songsHTML = makeSongsShowHTML(songsDict);
-			res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
-		}
-	)
+		request(
+			{
+				url: url,
+				method: 'POST',
+				json: {'selectedEpisode' : selectedEpisodeURL}
+			},
+			function(error, response, body) {
+				var songsDict = body;
+				songsHTML = makeSongsShowHTML(songsDict);
+				res.render('main.html', {'optionsForm' : songsHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
+			}
+		)
+	};
 });
 
 app.post('/youtube_search_movie', function (req, res, next) {
