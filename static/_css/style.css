@@ -49,6 +49,10 @@
 	margin-right: auto;
 }
 
+#search_btn3 {
+	width: 150px;
+}
+
 #search_btn3:hover {
 	background-color: #1976d2 !important;
 }
