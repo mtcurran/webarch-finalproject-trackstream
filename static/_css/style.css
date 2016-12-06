@@ -76,3 +76,9 @@
     transition: all 0.2s ease-out 0s;
     width: 44%;
 }
+
+.members {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
