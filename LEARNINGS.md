@@ -13,8 +13,12 @@ i. Our web application's CSS styling includes the colors of the buttons and text
 
 ii. Trackstream utilizes the TuneFind API to identify the relevant movie or TV show titles associated with our users' searches, as well as the seasons, episodes (by name and number), and songs that are played within the movie or TV episode. We then use the YouTube API to play the video associated with the song the user wants to hear. Additionally, we have created our own API to track what our users are using TrackStream to search for and view.
 
-iii.
-iv.
+iii. TCP
+The Transmission Control Protocol (TCP) is one of the main protocols of the Internet protocol suite utilised by Trackstream. TCP provides reliable, ordered, and error-checked delivery of a stream of octets between applications running on hosts communicating by an IP network. Our application is also using TCP to exchange the stream of data packets over the network.
+
+iv. Web Server
+A Web server is a program that uses HTTP (Hypertext Transfer Protocol) to serve the files that form Web pages to users, in response to their requests, which are forwarded by their computers' HTTP clients. In our project, web server takes the request from the browser eg the Trackstream's page HTTP request and serves the corresponding HTML page for that request after doing the necessary processing.
+
 v.
 vi.
 vii.
