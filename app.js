@@ -160,6 +160,7 @@ app.post('/no_button_selected', function (req, res, next) {
 app.post('/tunefind_get_movie_songs', function(req, res) {
 	movieName = req.body.show_or_movie_name;
 	if (!movieName) {
+		noSearchHTML = '<p>Woops! Please enter a Movie title!</p>';	
 		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_movie_songs"', 'searchPlaceHolder' : '"Select by Movie Title"'});
 	} else { 
 		// url = 'http://localhost:3001/tunefind_get_movie_songs';
@@ -188,6 +189,7 @@ app.post('/tunefind_get_movie_songs', function(req, res) {
 app.post('/tunefind_get_show_seasons', function (req, res, next) {
 	showName = req.body.show_or_movie_name;
 	if (!showName) {
+		noSearchHTML = '<p>Woops! Please enter a TV Show title!</p>';			
 		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
 	} else { 
 		// url = 'http://localhost:3001/tunefind_get_show_seasons';
@@ -216,6 +218,7 @@ app.post('/tunefind_get_show_seasons', function (req, res, next) {
 app.post('/tunefind_get_show_episodes', function (req, res, next) {
 	selectedSeasonURL = req.body.selectedSeason;
 	if (!selectedSeasonURL) {
+		noSearchHTML = '<p>Woops! Please enter a Season!</p>';			
 		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
 	} else { 
 		// url = 'http://localhost:3001/tunefind_get_show_episodes';
@@ -239,6 +242,7 @@ app.post('/tunefind_get_show_episodes', function (req, res, next) {
 app.post('/tunefind_get_show_songs', function (req, res, next) {
 	selectedEpisodeURL = req.body.selectedEpisode;
 	if (!selectedEpisodeURL) {
+		noSearchHTML = '<p>Woops! Please enter an Episode number!</p>';			
 		res.render('main.html', {'search_error' : noSearchHTML, 'searchAction' : '"/tunefind_get_show_seasons"', 'searchPlaceHolder' : '"Select by TV Show Title"'});
 	} else { 
 		// url = 'http://localhost:3001/tunefind_get_show_songs';
