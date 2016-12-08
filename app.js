@@ -11,11 +11,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static(__dirname + '/static'));
 
 /**
- * Takes in the global `seasonsDict` dictionary and creates a string of HTML 
+ * Takes in the `seasonsDict` dictionary and creates a string of HTML 
  * to display the seasons and their corresponding data. 
  * @param {Object} seasonsDict - A dictionary where the key is the season number, & 
- * the value is a list with the song count, episode count, and season API URL
- * @return {String} HTML - The string of HTML to inject dynamically to display
+ * the value is a list with the episode count and season API URL
+ * @return {String} - The string of HTML to inject dynamically to display
  * 	season options.
  */
  function makeSeasonsHTML(seasonsDict) {
@@ -41,11 +41,11 @@ app.use('/static', express.static(__dirname + '/static'));
  };
 
  /**
- * Takes in the global `episodesDict` dictionary and creates a string of HTML 
+ * Takes in the `episodesDict` dictionary and creates a string of HTML 
  * to display the episodes and their corresponding data. 
  * @param {Object} episodesDict - A dictionary where the key is the episode number, & 
- * the value is a list with the episode number, song count, and episode API URL
- * @return {String} HTML - The string of HTML to inject dynamically to display
+ * the value is a list with the episode number and episode API URL
+ * @return {String} - The string of HTML to inject dynamically to display
  * 	episode options.
  */
  function makeEpisodesHTML(episodesDict) {
@@ -71,11 +71,11 @@ app.use('/static', express.static(__dirname + '/static'));
  };
 
  /**
- * Takes in the global `songsDict` dictionary and creates a string of HTML 
- * to display the songs and their corresponding data. 
+ * Takes in the `songsDict` dictionary and creates a string of HTML 
+ * to display the songs and their corresponding data for a movie. 
  * @param {Object} songsDict - A dictionary where the key is the song name, & 
  * the value is a list with the artist name, and scene if applicable
- * @return {String} HTML - The string of HTML to inject dynamically to display
+ * @return {String} - The string of HTML to inject dynamically to display
  * 	song options.
  */
  function makeSongsMovieHTML(songsDict) {
@@ -109,11 +109,11 @@ app.use('/static', express.static(__dirname + '/static'));
  };
 
   /**
- * Takes in the global `songsDict` dictionary and creates a string of HTML 
- * to display the songs and their corresponding data. 
+ * Takes in the `songsDict` dictionary and creates a string of HTML 
+ * to display the songs and their corresponding data for a TV show. 
  * @param {Object} songsDict - A dictionary where the key is the song name, & 
  * the value is a list with the artist name, and scene if applicable
- * @return {String} HTML - The string of HTML to inject dynamically to display
+ * @return {String} - The string of HTML to inject dynamically to display
  * 	song options.
  */
  function makeSongsShowHTML(songsDict) {
