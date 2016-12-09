@@ -1,4 +1,3 @@
 # final-project-trackstream
 
-
-## Remember to 'git pull' at the start of each work session!
+Check out the web app at: www.trackstream.herokuapp.com
