@@ -26,7 +26,7 @@ Our API sends this JSON object back to our webserver where we have a helper func
 ### i.) CSS
 CSS, or Cascading Style Sheets, is used to style the look and feel of our web application. Our web application's CSS styling includes the colors of the buttons and text, the hover effects for our buttons, and the buttons' colors changing to indicate that they are pressed. We have also styled the cards that contain the search results, making all of the buttons the same size and expandable when the cursor hovers over them. We used the Bootstrap framework to organize the layout of the page.
 
-### ii.) API's,
+### ii.) API's
 An API, or Application Programming Interface, abstracts the methods to process data for a service from the client. Along with our own API, we make use of two external API's: TuneFind, Youtube. TrackStream utilizes the TuneFind API to identify the relevant movie or TV show titles associated with our users' searches, as well as the seasons, episodes (by name and number), and songs that are played within the movie or TV episode. We then use the YouTube API to play the video associated with the song the user wants to hear. Similarly, our API abstracts methods that are useful to our webserver in particular. 
 
 ### iii.) TCP
