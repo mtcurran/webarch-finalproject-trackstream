@@ -38,8 +38,10 @@ v.
 vi. 
 
 vii. GET Requests
+GET requests are defining what occurs when a viewer accesses a given URL on our web server, for example our homepage is defined by the get request '/' which renders the 'main.html' file to the browser. GET requests are also the way our API interacts with the external APIs of TuneFind and Youtube. These requests contain the URL to be requested, any authentication information, and the required parameters like show/movie name or YouTube search terms.
 
 viii. Heroku
+Heroku is a cloud-based hosting service that allows our web application and API to be accessed by anyone on the Internet. TrackStream uses two Heroku hosted projects, one for the web server and one for the API. These projects are linked via remotes to their corresponding GitHub repositories which include package.json containing information about dependencies, as well as the correct way to run the code for the project project (in the case of our web server, the command 'node app.js').
 
 ix. 
 
