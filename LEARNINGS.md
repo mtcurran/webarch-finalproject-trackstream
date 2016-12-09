@@ -51,4 +51,4 @@ Heroku is a cloud-based hosting service that allows our web application and API 
 Curl is used to modify the HTTP request, which allows it to transfer data with URL syntax and simulate a request from our code.
 
 ### x.) IP 
-IP (Internet Protocol) is the protocol used to send packets between two addresses in the Internet and works under the network layer.
+IP (Internet Protocol) is the protocol used to send packets between two addresses in the Internet and works under the network layer. Our deployed IP address on Heroku is http://trackstream.herokuapp.com/, which allows user across the internet to access our web app.
