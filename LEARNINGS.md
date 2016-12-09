@@ -47,6 +47,8 @@ GET requests are defining what occurs when a viewer accesses a given URL on our 
 ### viii.) Heroku
 Heroku is a cloud-based hosting service that allows our web application and API to be accessed by anyone on the Internet. TrackStream uses two Heroku hosted projects, one for the web server and one for the API. These projects are linked via remotes to their corresponding GitHub repositories which include package.json containing information about dependencies, as well as the correct way to run the code for the project project (in the case of our web server, the command 'node app.js').
 
-### ix.) 
+### ix.) Curl 
+Curl is used to modify the HTTP request, which allows it to transfer data with URL syntax and simulate a request from our code.
 
-### x.) 
+### x.) IP 
+IP (Internet Protocol) is the protocol used to send packets between two addresses in the Internet and works under the network layer.

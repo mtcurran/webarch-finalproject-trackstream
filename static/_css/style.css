@@ -1,6 +1,35 @@
-#welcome
-{
-	margin-left: 50px;
+#tophalf {
+    background-color: #e57373;
+}
+#nav {
+    background-color: #e57373;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 63px;
+}
+
+#title {
+	font-size: 40px;
+    color: white;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    text-align: center;
+    margin: auto;
+    font-weight: 500;
+    letter-spacing: 0.7px;
+}
+
+#nav:hover {
+	background-color: #ffa000;
+}
+
+#welcome {
+    margin-top: 30px;
+    color: #484848;
+    font-weight: 200;
+    font-size: 18px;
 }
 
 #movie {
@@ -36,7 +65,7 @@
 
 .searchsection {
 	text-align: center;
-	margin-top: 70px;
+	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -81,8 +110,15 @@
     width: 44%;
 }
 
+.searchfiled {
+	display: none;
+}
+
 .members {
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0;
+    padding: 0;
+    position: absolute;
+    height: 100px;
+	width: 100%;
 }
